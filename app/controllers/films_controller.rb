@@ -1,4 +1,5 @@
 class FilmsController < ApplicationController
+
 def filminfo
 require 'net/http'
 @cityid = 3
@@ -17,7 +18,7 @@ if(json["status"].to_i == 200)
 @jsn = res.body.force_encoding('UTF-8')
 	@result = json
 else
-	redirect_to "/main/index"
+	redirect_to "/films/index"
 end
 end
 end

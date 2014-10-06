@@ -12,6 +12,7 @@
 <p>Genres: <%= film["details"]["genres"] %></p>
 </div>
 
+<div class="col-xs-12">
 <ul class="nav nav-tabs" role="tablist" id="myTab">
  
  <li class="active"><a href="#clock" role="tab" data-toggle="tab">время</a></li>
@@ -24,9 +25,9 @@
 
 <div class="tab-content">
   
-<div class="tab-pane active" id="clock">...</div>
+<div class="tab-pane active" id="clock">clock</div>
   
-<div class="tab-pane" id="kino">...</div>
+<div class="tab-pane" id="kino">kino</div>
   
 </div>
 
@@ -37,5 +38,5 @@
     $('#myTab a:last').tab('show')
   })
 </script>
-
+</div>
 <% end %>
