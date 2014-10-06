@@ -33,8 +33,28 @@ class ApplicationController < ActionController::Base
   	end
 
   	session[:branch_id] = @branch[:branch_id]
+
+
   end
 
-
+def index
+@city = 3
+BRANCHES.each do |branch|
+	if branch[:branch_id]==session[:branch_id]
+		@city = branch[:town_id]
+	end
+end	
+url= URI.parse("http://api.4geo.ru/rest2/affiche/events.json?content_type=-1001&town_id=" + @city.to_s + "&dateStart=" +  Date.today.to_s + "&dateEnd=" + Date.today.to_s + "&sorting=ASC")
+req = Net::HTTP::Get.new(url.to_s)
+	res = Net::HTTP.start(url.host, url.port) {|http|
+		http.request(req)
+	}
+	@json = JSON.parse(res.body.force_encoding('UTF-8'))
+#@json = JSON.parse('{"count" : 4, "event":[{"name": "name1"}, {"name": "name2"}]}')
 
 end
+
+end
+
+
+
