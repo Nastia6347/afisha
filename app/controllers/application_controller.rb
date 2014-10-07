@@ -47,7 +47,7 @@ end
 	@films = DATA_PROVIDER.getEventFilms(@city,Date.today.to_s,Date.today.to_s,"ASC")
 
 
-url= URI.parse("http://api.4geo.ru/rest2/affiche/eventTypes.json?branchId=" + @city.to_s)
+url= URI.parse("http://api.4geo.ru/rest2/affiche/eventTypes.json?branchId=" + session[:branch_id].to_s)
 req = Net::HTTP::Get.new(url.to_s)
 	res = Net::HTTP.start(url.host, url.port) {|http|
 		http.request(req)

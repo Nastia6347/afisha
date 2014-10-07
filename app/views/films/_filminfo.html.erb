@@ -10,41 +10,44 @@
 <p>Directors: <%= film["details"]["director"] %></p>
 <p>Genres: <%= film["details"]["genres"] %></p>
 <p>Country: <%= film["details"]["country"] %></p>
+<p>ReleaseDate: <%= film["details"]["releaseDate"] %></p>
+<p>EnglishName: <%= film["details"]["englishName"] %></p>
 </div>
 
-<div class="col-xs-12>
+<div class="col-xs-12">
 <% film["details"]["filmShots"]["images"].each do |fim| %>
 <%= image_tag(fim["image"][0]["url"])%>
 <% end %>
 </div>
 
 <div class="col-xs-12">
-<ul class="nav nav-tabs" role="tablist" id="myTab">
- 
- <li class="active"><a href="#clock" role="tab" data-toggle="tab">время</a></li>
- 
- <li><a href="#kino" role="tab" data-toggle="tab">кинотеатр</a></li>
- 
-</ul>
-
-<div class="tab-content">
+ <ul class="nav nav-tabs" role="tablist"> 
+  <li class="active"><a href="#clock" role="tab" data-toggle="tab">время</a></li> 
+  <li><a href="#kino" role="tab" data-toggle="tab">кинотеатр</a></li> 
+ </ul>
+ <div class="tab-content">
+  <div class="tab-pane active" id="clock">
+  clock
+  </div>
   
-<div class="tab-pane active" id="clock">clock</div>
+  <div class="tab-pane" id="kino">
+   <% film["details"]["schedules"]["schedule"].each do |fil| %>
+    <div>
+	 <%= fil["cinema"]["namePlace"] %>
+     <%= fil["cinema"]["address"]["address"] %>
+	</div>
+	<div>
+     <a target="_blank" href="http:\\<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
+    </div>
+	<div>
+	 <% fil["cinema"]["contacts"].each do |f| %>
+	   <div><%= f["contact"]["comment"] %> - (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
+	 <% end %>
+	
+   <% end %>
+  </div>
   
-<div class="tab-pane" id="kino">
+ </div> 
+</div>
 
-<% film["details"]["schedules"]["schedule"].each do |fil| %>  
- <div>
-  <%= fil["cinema"]["namePlace"] %>
-  <%= fil["cinema"]["address"]["address"] %>
-  <a target="_blank" href="http:\\<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
-  <% end %>
- </div>
-</div>
-<script>
-  $(function () {
-    $('#myTab a:last').tab('show')
-  })
-</script>
-</div>
 <% end %>

@@ -13,6 +13,6 @@ def change_town
 			session[:branch_id] = @branch[:branch_id].to_i
 		end
 
-redirect_to "javascript:history.back();"
+redirect_to :back
 end
 end
