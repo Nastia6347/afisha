@@ -44,12 +44,7 @@ BRANCHES.each do |branch|
 		@city = branch[:town_id]
 	end
 end	
-url= URI.parse("http://api.4geo.ru/rest2/affiche/events.json?content_type=-1001&town_id=" + @city.to_s + "&dateStart=" +  Date.today.to_s + "&dateEnd=" + Date.today.to_s + "&sorting=ASC")
-req = Net::HTTP::Get.new(url.to_s)
-	res = Net::HTTP.start(url.host, url.port) {|http|
-		http.request(req)
-	}
-	@films = JSON.parse(res.body.force_encoding('UTF-8'))
+	@films = DATA_PROVIDER.getEventFilms(@city,Date.today.to_s,Date.today.to_s,"ASC")
 
 
 url= URI.parse("http://api.4geo.ru/rest2/affiche/eventTypes.json?branchId=" + @city.to_s)

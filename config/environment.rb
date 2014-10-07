@@ -1,7 +1,7 @@
 #encoding: utf-8
 # Load the rails application
 require File.expand_path('../application', __FILE__)
-
+require File.expand_path('app/controllers/FourGeoDataProvider.rb')
 # Initialize the rails application
 Bid::Application.initialize!
 
@@ -27,3 +27,4 @@ BRANCHES = [
 	{:name=>"Ханты-Мансийск",	:branch_id=>163840, :town_id=>14942209},
 	{:name=>"Череповец",	:branch_id=>178181256, :town_id=>178138031}
 ]
+DATA_PROVIDER = FourGeoDataProvider.new
