@@ -1,4 +1,5 @@
-﻿<% @events["result"]["event"].each do |event| %>
-<div class="col-xs-12" onClick="document.location='/events/eventinfo/<%= event["id"].to_i %>'">
+﻿<% @result["result"]["event"].each do |event| %>
+<div class="col-xs-12" onClick="document.location='/events/eventinfo/<%= event["id"].to_s %>'">
 <h3><%= event["name"] %></h3>
+</div>
 <% end %>

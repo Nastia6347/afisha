@@ -33,11 +33,6 @@ class ApplicationController < ActionController::Base
   	end
 
   	session[:branch_id] = @branch[:branch_id]
-
-
-  end
-
-def index
 @city = 3
 BRANCHES.each do |branch|
 	if branch[:branch_id]==session[:branch_id]
@@ -46,10 +41,10 @@ BRANCHES.each do |branch|
 end	
 @films = DATA_PROVIDER.getEventFilms(@city,Date.today.to_s,Date.today.to_s,"ASC")
 @types = DATA_PROVIDER.getEventTypes(session[:branch_id])
-@types["result"]["eventType"].each do |type|
-	@events = DATA_PROVIDER.getEvents(type["id"],@city,Date.today.to_s,Date.today.to_s,"ASC")
 end
-	end
+
+def index
+end
 
 end
 
