@@ -26,28 +26,37 @@
   <li><a href="#kino" role="tab" data-toggle="tab">кинотеатр</a></li> 
  </ul>
  <div class="tab-content">
-  <div class="tab-pane active" id="clock">
-  clock
-  </div>
+  	<div class="tab-pane active" id="clock">
+   	<% film["details"]["schedules"]["schedule"].each do |fil| %>
+    	<div class="col-xs-12 col-sm-6 col-md-3"><div><%= fil["cinema"]["namePlace"] %></div>
+		Залы:
+		<% fil["halls"]["hall"].each do |fi| %>
+    		<div><%= fi["hallName"] %>
+			<% fi["hours"]["sessions"].each do |f| %>
+    	        	<%= f["hour"] %>;
+			<% end %>
+		</div>
+		<% end %>
+	</div>
+   	<% end %>
+	</div>
+   
   
   <div class="tab-pane" id="kino">
    <% film["details"]["schedules"]["schedule"].each do |fil| %>
-    <div>
-	 <%= fil["cinema"]["namePlace"] %>
+   <div class="col-xs-12 col-sm-6 col-md-3"><div>
+     <%= fil["cinema"]["namePlace"] %>
      <%= fil["cinema"]["address"]["address"] %>
-	</div>
-	<div>
+   </div>
+   <div>
      <a target="_blank" href="http:\\<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
-    </div>
-	<div>
-	 <% fil["cinema"]["contacts"].each do |f| %>
-	   <div><%= f["contact"]["comment"] %> - (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
-	 <% end %>
-	
-   <% end %>
-  </div>
-  
- </div> 
-</div>
-
+   </div>
+    <% fil["cinema"]["contacts"].each do |f| %>
+         <div><%= f["contact"]["comment"] %> - (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
+      <% end %>	
+	</div>     
+    <% end %>
+</div> 
+   
+</div> 
 <% end %>

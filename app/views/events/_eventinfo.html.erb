@@ -1,8 +1,8 @@
-<% @result["result"]["event"].each do |event| %>
+﻿<% @result["result"]["event"].each do |event| %>
 <h3><%= event["name"] %></h3>
 <div class="col-xs-12 col-md-6">
 <p>Место проведение: <%= event["details"]["place"]["namePlace"] %></p>
-<a target="_blank" href="http:\\<%= event["details"]["place"]["webPages"][0]%>"><%= event["details"]["place"]["webPages"][0]%></a>
+<a target="_blank" href="http:\\"<%= event["details"]["place"]["webPages"][0]%>"><%= event["details"]["place"]["webPages"][0]%></a>
 <p>Адресс: <%= event["details"]["place"]["address"]["address"] %></p>
 </div>
 <% end %>
