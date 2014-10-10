@@ -2,6 +2,7 @@
 
 <h3><%= film["name"] %></h3>
 
+
 <div class="col-xs-12 col-md-6"><%= video_tag(film["details"]["trailer"], size:"450x300")%></div>
 
 <div class="col-xs-12 col-md-6">
@@ -12,6 +13,7 @@
 <p>Country: <%= film["details"]["country"] %></p>
 <p>ReleaseDate: <%= film["details"]["releaseDate"] %></p>
 <p>EnglishName: <%= film["details"]["englishName"] %></p>
+<p>продолжительность:<%= film["details"]["duration"] %></p>
 </div>
 
 <div class="col-xs-12">
