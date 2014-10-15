@@ -1,12 +1,14 @@
-<% @films["result"]["event"].each do |film| %>
-<div class="col-xs-12" onClick="document.location='/films/filminfo/<%= film["id"].to_i %>'">
-<h3><%= film["name"] %></h3>
-<div class="col-xs-12 col-sm-2">
-<%= image_tag(film["details"]["poster"]["image"][0]["url"])%>
+﻿<% @films["result"]["event"].each do |film| %>
+<div class="col-xs-12">
+<div class="col-xs-12 col-md-2" style="padding-top:60px">
+<a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"])%></a>
 </div>
-<div class="col-xs-12 col-sm-10">
-<p><%= film["description"] %></p>
+<div class="col-xs-12 col-md-10"><a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
+<a href="/films/filminfo/<%= film["id"].to_i %>" style="text-decoration:none; color:#000000"><%= film["description"] %>
+<p>Genres: <%= film["details"]["genres"] %></p>
+<p>Country: <%= film["details"]["country"] %></p>
+<p>продолжительность:<%= film["details"]["duration"] %></p>
+</a>
 </div>
 </div>
 <% end %>
-

@@ -1,5 +1,11 @@
 ﻿<% @result["result"]["event"].each do |event| %>
-<div class="col-xs-12" onClick="document.location='/events/eventinfo/<%= event["id"].to_s %>'">
+<div><a class="col-xs-12" href="/events/eventinfo/<%= event["id"].to_s %>">
 <h3><%= event["name"] %></h3>
+</a>
+<%= image_tag(event["images"]["image"][1]["url"])%>
+<div><%= event["description"] %></div>
+<%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
 </div>
+<%= event["startAt"] %>
+<%= event["endAt"] %>
 <% end %>

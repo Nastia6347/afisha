@@ -16,11 +16,6 @@
 <p>продолжительность:<%= film["details"]["duration"] %></p>
 </div>
 
-<div class="col-xs-12">
-<% film["details"]["filmShots"]["images"].each do |fim| %>
-<%= image_tag(fim["image"][0]["url"])%>
-<% end %>
-</div>
 
 <div class="col-xs-12">
  <ul class="nav nav-tabs" role="tablist"> 
@@ -30,15 +25,26 @@
  <div class="tab-content">
   	<div class="tab-pane active" id="clock">
    	<% film["details"]["schedules"]["schedule"].each do |fil| %>
-    	<div class="col-xs-12 col-sm-6 col-md-3"><div><%= fil["cinema"]["namePlace"] %></div>
-		Сеансы:
+    	<div class="col-xs-12 col-sm-6 col-md-3">
+<div>
+<%= fil["cinema"]["namePlace"] %>
+<%= fil["cinema"]["address"]["address"] %>
+</div>
+<div>
+<a target="_blank" href="http://<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
+</div>		
+		<div>
 		<% fil["halls"]["hall"].each do |fi| %>
-    		<div><%= fi["hallName"] %>
+    		
 			<% fi["hours"]["sessions"].each do |f| %>
-    	        	<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>;
+    	        	<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
 			<% end %>
-		</div>
-		<% end %>
+		<% end %>
+		
+</div>		
+<% fil["cinema"]["contacts"].each do |f| %>
+         <div><%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
+      <% end %>	
 	</div>
    	<% end %>
 	</div>
@@ -54,11 +60,15 @@
      <a target="_blank" href="http://<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
    </div>
     <% fil["cinema"]["contacts"].each do |f| %>
-         <div><%= f["contact"]["comment"] %> - (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
+         <div><%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
       <% end %>	
 	</div>     
     <% end %>
 </div> 
-   
 </div> 
+<div class="col-xs-12">
+<% film["details"]["filmShots"]["images"].each do |fim| %>
+<%= image_tag(fim["image"][0]["url"])%>
+<% end %>
+</div>   
 <% end %>

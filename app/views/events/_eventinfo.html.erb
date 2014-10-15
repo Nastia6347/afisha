@@ -4,4 +4,12 @@
 <p>Место проведение: <%= event["details"]["place"]["namePlace"] %></p>
 <a target="_blank" href="http://<%= event["details"]["place"]["webPages"][0]%>"><%= event["details"]["place"]["webPages"][0]%></a>
 </div>
+<div class="col-xs-12"><%= event["description"] %></div>
+<%= image_tag(event["details"]["photo"]["images"][0]["image"][0]["url"])%>
+<%= image_tag(event["details"]["photo"]["images"][1]["image"][0]["url"])%>
+<%= image_tag(event["details"]["photo"]["images"][2]["image"][0]["url"])%>
+<%= image_tag(event["details"]["photo"]["images"][3]["image"][0]["url"])%>
+<%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
+<%= event["startAt"] %>
+<%= event["endAt"] %>
 <% end %>
