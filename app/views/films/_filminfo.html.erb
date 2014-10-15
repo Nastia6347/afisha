@@ -37,7 +37,10 @@
 		<% fil["halls"]["hall"].each do |fi| %>
     		
 			<% fi["hours"]["sessions"].each do |f| %>
-    	        	<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+			       	<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+					<% if f["threeD"] == true %>
+					3D
+					<% end %>
 			<% end %>
 		<% end %>
 		

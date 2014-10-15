@@ -3,7 +3,9 @@
 <h3><%= event["name"] %></h3>
 </a>
 <%= image_tag(event["images"]["image"][1]["url"])%>
-<div><%= event["description"] %></div>
+<hr/>
+<div><%=raw event["description"] %></div>
+<hr/>
 <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
 </div>
 <%= event["startAt"] %>

@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+	if (history.length>1)
+	window.onload=function(){document.getElementById("lol").style.display="block"}
+	</script>
     <title>Афиша города</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -37,7 +41,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-		<a class="navbar-brand" onclick="javascript:history.back();">&laquo;</a>
+		  <a id="lol" style="display:none" class="navbar-brand" onclick="javascript:history.back();">&laquo;</a>
           <a class="navbar-brand" href="/">Афиша города</a>	  
 	</div>          
 	<!-- Collect the nav links, forms, and other content for toggling -->

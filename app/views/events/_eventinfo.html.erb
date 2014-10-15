@@ -1,14 +1,22 @@
 ﻿<% @result["result"]["event"].each do |event| %>
 <h3><%= event["name"] %></h3>
-<div class="col-xs-12 col-md-6">
+<div class="col-xs-12">
 <p>Место проведение: <%= event["details"]["place"]["namePlace"] %></p>
 <a target="_blank" href="http://<%= event["details"]["place"]["webPages"][0]%>"><%= event["details"]["place"]["webPages"][0]%></a>
+<% if event["details"]["place"]["address"]!= nil %>
+<%= event["details"]["place"]["address"]["address"] %>
+	<% event["details"]["place"]["contacts"].each do |f| %>
+         <div><%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
+      <% end %>
+<% end %>
 </div>
-<div class="col-xs-12"><%= event["description"] %></div>
-<%= image_tag(event["details"]["photo"]["images"][0]["image"][0]["url"])%>
-<%= image_tag(event["details"]["photo"]["images"][1]["image"][0]["url"])%>
-<%= image_tag(event["details"]["photo"]["images"][2]["image"][0]["url"])%>
-<%= image_tag(event["details"]["photo"]["images"][3]["image"][0]["url"])%>
+<div class="col-xs-12"><%=raw event["description"].to_s %></div>
+<% if event["details"]["photo"]!= nil %>
+<div><% event["details"]["photo"]["images"].each do |eve| %>
+<%= image_tag(eve["image"][0]["url"])%>
+<% end %>
+</div>
+<% end %>
 <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
 <%= event["startAt"] %>
 <%= event["endAt"] %>
