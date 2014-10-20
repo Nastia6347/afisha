@@ -23,7 +23,7 @@
   <li><a href="#kino" role="tab" data-toggle="tab">кинотеатр</a></li> 
  </ul>
  <div class="tab-content">
-  	<div class="tab-pane active" id="clock">
+  	<div class="tab-pane active col-xs-12" id="clock">
    	<% film["details"]["schedules"]["schedule"].each do |fil| %>
     	<div class="col-xs-12 col-sm-6 col-md-3">
 <div>
@@ -53,7 +53,7 @@
 	</div>
    
   
-  <div class="tab-pane" id="kino">
+  <div class="tab-pane col-xs-12" id="kino">
    <% film["details"]["schedules"]["schedule"].each do |fil| %>
    <div class="col-xs-12 col-sm-6 col-md-3"><div>
      <%= fil["cinema"]["namePlace"] %>
@@ -70,8 +70,24 @@
 </div> 
 </div> 
 <div class="col-xs-12">
-<% film["details"]["filmShots"]["images"].each do |fim| %>
-<%= image_tag(fim["image"][0]["url"])%>
+<% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
+ <% if index<4 %>
+  <%= image_tag(fim["image"][0]["url"])%>
+ <% end %>  
 <% end %>
-</div>   
+<a id="all" >Показать еще</a>
+<div id="imge" style="display:none">
+<% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
+ <% if index>3 %>
+  <%= image_tag(fim["image"][0]["url"])%>
+ <% end %>  
 <% end %>
+</div>
+</div>
+<% end %>
+<script>
+onclick=function(){
+document.getElementById("imge").style.display="block"
+document.getElementById("all").style.display="none"
+}
+</script>
