@@ -12,12 +12,29 @@
 </div>
 <div class="col-xs-12"><%=raw event["description"].to_s %></div>
 <% if event["details"]["photo"]!= nil %>
-<div><% event["details"]["photo"]["images"].each do |eve| %>
-<%= image_tag(eve["image"][0]["url"])%>
-<% end %>
+<div>
+	<% event["details"]["photo"]["images"].each_with_index do |eve, index| %>
+		<% if index<4 %>
+		<%= image_tag(eve["image"][0]["url"])%>
+		<% end %>
+	<% end %>
+	<a id="all" >Показать еще</a>
+</div>	
+<div id="imge" style="display:none">
+	<% event["details"]["photo"]["images"].each_with_index do |eve, index| %>
+		<% if index>3 %>
+			<%= image_tag(eve["image"][0]["url"])%>
+		<% end %>
+	<% end %>
 </div>
 <% end %>
 <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
 <%= event["startAt"] %>
 <%= event["endAt"] %>
 <% end %>
+<script>
+onclick=function(){
+document.getElementById("imge").style.display="block"
+document.getElementById("all").style.display="none"
+}
+</script>
