@@ -1,14 +1,41 @@
-﻿<% @films["result"]["event"].each do |film| %>
-<div class="col-xs-12">
-<div class="col-xs-12 col-md-2" style="padding-top:60px">
-<a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"])%></a>
-</div>
-<div class="col-xs-12 col-md-10"><a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
-<a href="/films/filminfo/<%= film["id"].to_i %>" style="text-decoration:none; color:#000000"><%= film["description"] %>
-<p>Genres: <%= film["details"]["genres"] %></p>
-<p>Country: <%= film["details"]["country"] %></p>
-<p>продолжительность:<%= film["details"]["duration"] %></p>
-</a>
-</div>
-</div>
+﻿<h1>Сейчас в кинотеатрах</h1>
+<% @films["result"]["event"].each do |film| %>
+    <div class="col-xs-12">
+
+      <a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"], align:"left", style:"padding-top:25px" ) %></a>
+
+      <div class="col-xs-10">
+        <a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
+        <div style="color:grey">
+          <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
+          <%= film["details"]["genres"] %><br>
+        </div>
+      <div>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#clock" role="tab" data-toggle="tab">Рассписание</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active col-xs-12" id="clock">
+          <% film["details"]["schedules"]["schedule"].each do |fil| %>
+              <div>
+                <div>
+                  <%= fil["cinema"]["namePlace"] %>
+                </div>
+                <div>
+                  <% fil["halls"]["hall"].each do |fi| %>
+                      <% fi["hours"]["sessions"].each do |f| %>
+                          <%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+                          <% if f["threeD"] == true %>
+                              3D
+                          <% end %>
+                      <% end %>
+                  <% end %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+      </div>
+     </div>
+    </div>
 <% end %>

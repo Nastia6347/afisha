@@ -1,14 +1,16 @@
-﻿<% @films["result"]["event"].each do |film| %>
+﻿<h1>Сейчас в кинотеатрах</h1>
+<% @films["result"]["event"].each do |film| %>
 <div class="col-xs-12">
-<div class="col-xs-12 col-md-2" style="padding-top:60px">
-<a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"])%></a>
-</div>
-<div class="col-xs-12 col-md-10"><a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
-<a href="/films/filminfo/<%= film["id"].to_i %>" style="text-decoration:none; color:#000000"><%= film["description"] %>
-<p>Жанры: <%= film["details"]["genres"] %></p>
-<p>Страны: <%= film["details"]["country"] %></p>
-<p>Продолжительность:<%= film["details"]["duration"] %></p>
-</a>
-</div>
+
+  <a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"], align:"left", style:"padding-top:25px" ) %></a>
+
+ <div class="col-xs-10">
+  <a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
+  <div style="color:grey">
+    <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
+    <%= film["details"]["genres"] %><br>
+  </div>
+  <a href="/films/filminfo/<%= film["id"].to_i %>" style="text-decoration:none; color:#000000"><%= film["description"] %></a>
+ </div>
 </div>
 <% end %>

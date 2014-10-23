@@ -13,6 +13,6 @@ def change_town
 			session[:branch_id] = @branch[:branch_id].to_i
 		end
 
-redirect_to "/main/index"
+redirect_to "/"
 end
 end
