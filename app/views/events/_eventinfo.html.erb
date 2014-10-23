@@ -1,6 +1,11 @@
 ﻿<% @result["result"]["event"].each do |event| %>
 <h3><%= event["name"] %></h3>
-<div class="col-xs-12">
+    <div>
+      <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
+      <%= event["startAt"] %>
+      <%= event["endAt"] %>
+    </div>
+<div>
 <p>Место проведения: <%= event["details"]["place"]["namePlace"] %></p>
 <a target="_blank" href="http://<%= event["details"]["place"]["webPages"][0]%>"><%= event["details"]["place"]["webPages"][0]%></a>
 <% if event["details"]["place"]["address"]!= nil %>
@@ -10,14 +15,33 @@
       <% end %>
 <% end %>
 </div>
-<div class="col-xs-12"><%=raw event["description"].to_s %></div>
+<div>
+  <%=raw event["description"].to_s %>
+</div>
+
+<div>
 <% if event["details"]["photo"]!= nil %>
-<div><% event["details"]["photo"]["images"].each do |eve| %>
-<%= image_tag(eve["image"][0]["url"])%>
+    <div>
+      <% event["details"]["photo"]["images"].each_with_index do |eve, index| %>
+        <% if index<4 %>
+            <%= image_tag(eve["image"][0]["url"])%>
+        <% end %>
+       <% end %>
+    </div>
+    <a id="all" >Показать еще</a>
+    <div id="imge" style="display:none">
+        <% event["details"]["photo"]["images"].each_with_index do |eve, index| %>
+            <% if index>3 %>
+                <%= image_tag(eve["image"][0]["url"])%>
+            <% end %>
+        <% end %>
+    </div>
 <% end %>
 </div>
 <% end %>
-<%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
-<%= event["startAt"] %>
-<%= event["endAt"] %>
-<% end %>
+<script>
+  $('#all').click(function(){
+      $(this).hide();
+      $('#imge').css({'display': 'block'});
+  });
+</script>
