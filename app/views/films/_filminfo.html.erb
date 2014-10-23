@@ -1,4 +1,4 @@
-п»ї<% @result["result"]["event"].each do |film| %>
+<% @result["result"]["event"].each do |film| %>
 
 <h3><%= film["name"] %></h3>
 
@@ -6,21 +6,21 @@
 <div class="col-xs-12 col-md-6"><%= video_tag(film["details"]["trailer"], size:"450x300")%></div>
 
 <div class="col-xs-12 col-md-6">
-<p>РћРїРёСЃР°РЅРёРµ: <%= film["description"] %></p>
-<p>РђРєС‚РµСЂС‹: <%= film["details"]["actors"] %></p>
-<p>Р РµР¶РёСЃРµСЂС‹: <%= film["details"]["director"] %></p>
-<p>Р–Р°РЅСЂС‹: <%= film["details"]["genres"] %></p>
-<p>РЎС‚СЂР°РЅС‹: <%= film["details"]["country"] %></p>
-<p>Р”Р°С‚Р° СЂРµР»РёР·Р°: <%= film["details"]["releaseDate"] %></p>
-<p>РћСЂРёРіРёРЅР°Р»СЊРЅРѕРµ РЅР°Р·РІР°РЅРёРµ: <%= film["details"]["englishName"] %></p>
-<p>РџСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ:<%= film["details"]["duration"] %></p>
+<p>Описание: <%= film["description"] %></p>
+<p>Актеры: <%= film["details"]["actors"] %></p>
+<p>Режиссеры: <%= film["details"]["director"] %></p>
+<p>Жанры: <%= film["details"]["genres"] %></p>
+<p>Страны: <%= film["details"]["country"] %></p>
+<p>Дата релиза: <%= film["details"]["releaseDate"] %></p>
+<p>Оригинальное название: <%= film["details"]["englishName"] %></p>
+<p>Продолжительность:<%= film["details"]["duration"] %></p>
 </div>
 
 
 <div class="col-xs-12">
  <ul class="nav nav-tabs" role="tablist"> 
-  <li class="active"><a href="#clock" role="tab" data-toggle="tab">РІСЂРµРјСЏ</a></li> 
-  <li><a href="#kino" role="tab" data-toggle="tab">РєРёРЅРѕС‚РµР°С‚СЂ</a></li> 
+  <li class="active"><a href="#clock" role="tab" data-toggle="tab">время</a></li> 
+  <li><a href="#kino" role="tab" data-toggle="tab">кинотеатр</a></li> 
  </ul>
  <div class="tab-content">
   	<div class="tab-pane active col-xs-12" id="clock">
@@ -42,7 +42,8 @@
 					3D
 					<% end %>
 			<% end %>
-		<% end %>
+		
+<% end %>
 		
 </div>		
 <% fil["cinema"]["contacts"].each do |f| %>
@@ -75,7 +76,7 @@
   <%= image_tag(fim["image"][0]["url"])%>
  <% end %>  
 <% end %>
-<a id="all" >РџРѕРєР°Р·Р°С‚СЊ РµС‰Рµ</a>
+<a id="all" >Показать еще</a>
 <div id="imge" style="display:none">
 <% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
  <% if index>3 %>
