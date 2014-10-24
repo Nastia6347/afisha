@@ -19,29 +19,54 @@
   <%=raw event["description"].to_s %>
 </div>
 
-<div>
+
+   
+
+
 <% if event["details"]["photo"]!= nil %>
-    <div>
-      <% event["details"]["photo"]["images"].each_with_index do |eve, index| %>
-        <% if index<4 %>
-            <%= image_tag(eve["image"][0]["url"])%>
-        <% end %>
-       <% end %>
-    </div>
-    <a id="all" >Показать еще</a>
-    <div id="imge" style="display:none">
+<div id="MainContent">
+
+      <ul id="Gallery" class="gallery">
+
         <% event["details"]["photo"]["images"].each_with_index do |eve, index| %>
+            <% if index<4 %>
+            <li><a href="<%= eve["image"][2]["url"] %>"><%= image_tag(eve["image"][0]["url"])%></a></li>
+            <% end %>
             <% if index>3 %>
-                <%= image_tag(eve["image"][0]["url"])%>
+                <li><a href="<%= eve["image"][2]["url"] %>"><%= image_tag(eve["image"][0]["url"], style:"display:none", class:"imge" ) %></a></li>
             <% end %>
         <% end %>
+      </ul>
+      <a id="all" >Показать еще</a>
     </div>
 <% end %>
-</div>
+
+
+
+
 <% end %>
+
+
 <script>
-  $('#all').click(function(){
-      $(this).hide();
-      $('#imge').css({'display': 'block'});
-  });
+    $('#all').click(function(){
+        $(this).hide();
+        $('.imge').css({'display': 'block'});
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    (function(window, $, PhotoSwipe){
+
+        $(document).ready(function(){
+
+            var options = {};
+            $("#Gallery a").photoSwipe(options);
+
+        });
+
+
+    }(window, window.jQuery, window.Code.PhotoSwipe));
+
 </script>
