@@ -9,6 +9,7 @@
   <div style="color:grey">
     <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
     <%= film["details"]["genres"] %><br>
+<% if film["details"]["duration"] !=nil %> <%= film["details"]["duration"] %> мин<br><%end%>
   </div>
   <a href="/films/filminfo/<%= film["id"].to_i %>" style="text-decoration:none; color:#000000"><%= film["description"] %></a>
  </div>
