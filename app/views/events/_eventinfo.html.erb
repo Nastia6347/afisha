@@ -3,7 +3,7 @@
     <div>
       <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
       <%= event["startAt"] %>
-      <%= event["endAt"] %>
+      <% if event["endAt"] != event["startAt"] %> <%= event["endAt"] %> <% end %>
     </div>
 <div>
 <p>Место проведения: <%= event["details"]["place"]["namePlace"] %></p>
@@ -11,16 +11,16 @@
 <% if event["details"]["place"]["address"]!= nil %>
 <%= event["details"]["place"]["address"]["address"] %>
 	<% event["details"]["place"]["contacts"].each do |f| %>
-         <div><%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
+         <div>
+		<%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) 
+		<%= f["contact"]["value"] %>
+	 </div>
       <% end %>
 <% end %>
 </div>
 <div>
   <%=raw event["description"].to_s %>
 </div>
-
-
-   
 
 
 <% if event["details"]["photo"]!= nil %>
@@ -40,9 +40,6 @@
       <a id="all" >Показать еще</a>
     </div>
 <% end %>
-
-
-
 
 <% end %>
 
