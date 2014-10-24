@@ -1,0 +1,5 @@
+.gallery { list-style: none; padding: 0; margin: 0; }
+.gallery:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+.gallery li { float: left; width:  auto;  height: auto; }
+.gallery li a { display: block; margin: 5px; }
+.gallery li img { display: block; width: 100%; height: auto; }
