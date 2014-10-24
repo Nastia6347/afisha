@@ -49,27 +49,46 @@
  </div>
  </div>
 </div>
-<div>
-<div>
-<% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
- <% if index<4 %>
-  <%= image_tag(fim["image"][0]["url"])%>
- <% end %>  
-<% end %>
-</div>
-<a id="all" >Показать еще</a>
-<div id="imge" style="display:none">
-<% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
- <% if index>3 %>
-  <%= image_tag(fim["image"][0]["url"])%>
- <% end %>  
-<% end %>
-</div>
-</div>
+
+
+ <div id="MainContent">
+
+      <ul id="Gallery" class="gallery">
+
+        <% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
+            <% if index<4 %>
+            <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"])%></a></li>
+            <% end %>
+            <% if index>3 %>
+                <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"], style:"display:none", class:"imge" ) %></a></li>
+            <% end %>
+        <% end %>
+      </ul>
+      <a id="all" >Показать еще</a>
+    </div>
+
+
 <% end %>
 <script>
     $('#all').click(function(){
         $(this).hide();
-        $('#imge').css({'display': 'block'});
+        $('.imge').css({'display': 'block'});
     });
+</script>
+
+
+<script type="text/javascript">
+
+    (function(window, $, PhotoSwipe){
+
+        $(document).ready(function(){
+
+            var options = {};
+            $("#Gallery a").photoSwipe(options);
+
+        });
+
+
+    }(window, window.jQuery, window.Code.PhotoSwipe));
+
 </script>
