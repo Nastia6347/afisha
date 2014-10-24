@@ -23,17 +23,19 @@
     <% film["details"]["schedules"]["schedule"].each do |fil| %>
      <div>
             <div>
-                <%= fil["cinema"]["namePlace"] %>
+               <b> <%= fil["cinema"]["namePlace"] %></b>
                 <%= fil["cinema"]["address"]["address"] %>
             </div>
             <a target="_blank" href="http://<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
             <div>
           <% fil["halls"]["hall"].each do |fi| %>
            <% fi["hours"]["sessions"].each do |f| %>
-            <%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+            <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+		<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
               <% if f["threeD"] == true %>
                   3D
               <% end %>
+	    </button>
            <% end %>
                 <% end %>
             </div>

@@ -8,26 +8,30 @@
         <a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
         <div style="color:grey">
           <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
+ 
+<% if film["details"]["duration"] !=nil %> <%= film["details"]["duration"] %> мин<br><%end%>
           <%= film["details"]["genres"] %><br>
         </div>
       <div>
       <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#clock" role="tab" data-toggle="tab">Рассписание</a></li>
+        <li class="active"><a href="#clock" role="tab" data-toggle="tab" text-align:  center;" >Расписание</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active col-xs-12" id="clock">
           <% film["details"]["schedules"]["schedule"].each do |fil| %>
               <div>
-                <div>
-                  <%= fil["cinema"]["namePlace"] %>
+                <div >
+                 <b> <%= fil["cinema"]["namePlace"] %></b>
                 </div>
                 <div>
                   <% fil["halls"]["hall"].each do |fi| %>
                       <% fi["hours"]["sessions"].each do |f| %>
-                          <%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+                      <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+			<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
                           <% if f["threeD"] == true %>
                               3D
                           <% end %>
+		       </button>
                       <% end %>
                   <% end %>
                 </div>
