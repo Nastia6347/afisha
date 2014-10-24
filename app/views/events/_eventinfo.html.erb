@@ -1,6 +1,8 @@
 ﻿<% @result["result"]["event"].each do |event| %>
 <h3><%= event["name"] %></h3>
+<%= image_tag(event["images"]["image"][0]["url"], align:"left", style:"padding-top:25px;padding-right:25px;" ) %>
     <div>
+
       <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
       <%= event["startAt"] %>
       <% if event["endAt"] != event["startAt"] %> <%= event["endAt"] %> <% end %>
