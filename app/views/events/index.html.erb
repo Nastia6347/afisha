@@ -1,13 +1,17 @@
 ﻿<% @result["result"]["event"].each do |event| %>
-<div><a class="col-xs-12" href="/events/eventinfo/<%= event["id"].to_s %>">
-<h3><%= event["name"] %></h3>
-</a>
-<%= image_tag(event["images"]["image"][1]["url"])%>
-<hr/>
-<div><%=raw event["description"] %></div>
-<hr/>
-<%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
+<div  class="col-xs-12" >
+ <a href="/events/eventinfo/<%= event["id"].to_s %>"><%= image_tag(event["images"]["image"][1]["url"], align:"left", style:"padding-top:25px" ) %></a>
+  <div class="col-xs-10">
+   <a class="col-xs-12" href="/events/eventinfo/<%= event["id"].to_s %>">
+    <h3><%= event["name"] %></h3>
+   </a>
+    <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
+    <%= event["startAt"] %>
+    <% if event["endAt"] != event["startAt"]%><%= event["endAt"] %> <% end %>
+    <p><h4><%= event["eventType"]["name"] %></h4></p>
+  <hr/>
+    <%=raw event["description"] %>
+  <hr/>
+  </div>
 </div>
-<%= event["startAt"] %>
-<%= event["endAt"] %>
 <% end %>

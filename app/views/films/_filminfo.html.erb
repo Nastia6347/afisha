@@ -1,93 +1,94 @@
 ﻿<% @result["result"]["event"].each do |film| %>
 
 <h3><%= film["name"] %></h3>
-
-
-<div class="col-xs-12 col-md-6"><%= video_tag(film["details"]["trailer"], size:"450x300")%></div>
-
-<div class="col-xs-12 col-md-6">
-<p>Description: <%= film["description"] %></p>
-<p>Actors: <%= film["details"]["actors"] %></p>
-<p>Directors: <%= film["details"]["director"] %></p>
-<p>Genres: <%= film["details"]["genres"] %></p>
-<p>Country: <%= film["details"]["country"] %></p>
-<p>ReleaseDate: <%= film["details"]["releaseDate"] %></p>
-<p>EnglishName: <%= film["details"]["englishName"] %></p>
-<p>продолжительность:<%= film["details"]["duration"] %></p>
+<div>
+  <%= video_tag(film["details"]["trailer"], size:"450x300")%>
+  <p><%= film["details"]["country"] %></p>
 </div>
 
+<div>
+<p><b>Продолжительность:</b><i> <%= film["details"]["duration"] %> мин.</i></p>
+<p><b>Описание:</b><i> <%= film["description"] %></i></p>
+<p><b>В ролях:</b><i> <%= film["details"]["actors"] %></i></p>
+<p><b>Режиссер:</b><i> <%= film["details"]["director"] %></i></p>
+<p><b>Жанр:</b><i> <%= film["details"]["genres"] %></i></p><br>
+</div>
 
-<div class="col-xs-12">
- <ul class="nav nav-tabs" role="tablist"> 
-  <li class="active"><a href="#clock" role="tab" data-toggle="tab">время</a></li> 
-  <li><a href="#kino" role="tab" data-toggle="tab">кинотеатр</a></li> 
+<div>
+ <ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#clock" role="tab" data-toggle="tab">Рассписание</a></li>
  </ul>
  <div class="tab-content">
-  	<div class="tab-pane active col-xs-12" id="clock">
-   	<% film["details"]["schedules"]["schedule"].each do |fil| %>
-    	<div class="col-xs-12 col-sm-6 col-md-3">
-<div>
-<%= fil["cinema"]["namePlace"] %>
-<%= fil["cinema"]["address"]["address"] %>
-</div>
-<div>
-<a target="_blank" href="http://<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
-</div>		
-		<div>
-		<% fil["halls"]["hall"].each do |fi| %>
-    		
-			<% fi["hours"]["sessions"].each do |f| %>
-			       	<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
-					<% if f["threeD"] == true %>
-					3D
-					<% end %>
-			<% end %>
-		<% end %>
-		
-</div>		
-<% fil["cinema"]["contacts"].each do |f| %>
-         <div><%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
-      <% end %>	
-	</div>
-   	<% end %>
-	</div>
-   
-  
-  <div class="tab-pane col-xs-12" id="kino">
-   <% film["details"]["schedules"]["schedule"].each do |fil| %>
-   <div class="col-xs-12 col-sm-6 col-md-3"><div>
-     <%= fil["cinema"]["namePlace"] %>
-     <%= fil["cinema"]["address"]["address"] %>
-   </div>
-   <div>
-     <a target="_blank" href="http://<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
-   </div>
-    <% fil["cinema"]["contacts"].each do |f| %>
-         <div><%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %></div>
-      <% end %>	
-	</div>     
+   <div class="tab-pane active col-xs-12" id="clock">
+    <% film["details"]["schedules"]["schedule"].each do |fil| %>
+     <div>
+            <div>
+               <b> <%= fil["cinema"]["namePlace"] %></b>
+                <%= fil["cinema"]["address"]["address"] %>
+            </div>
+            <a target="_blank" href="http://<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
+            <div>
+          <% fil["halls"]["hall"].each do |fi| %>
+           <% fi["hours"]["sessions"].each do |f| %>
+            <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+		<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+              <% if f["threeD"] == true %>
+                  3D
+              <% end %>
+	    </button>
+           <% end %>
+                <% end %>
+            </div>
+            <% fil["cinema"]["contacts"].each do |f| %>
+            <div>
+              <%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %>
+            </div>
+            <% end %>
+     </div>
     <% end %>
-</div> 
-</div> 
-<div class="col-xs-12">
-<% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
- <% if index<4 %>
-  <%= image_tag(fim["image"][0]["url"])%>
- <% end %>  
-<% end %>
-<a id="all" >Показать еще</a>
-<div id="imge" style="display:none">
-<% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
- <% if index>3 %>
-  <%= image_tag(fim["image"][0]["url"])%>
- <% end %>  
-<% end %>
+ </div>
+ </div>
 </div>
-</div>
+
+
+ <div id="MainContent">
+
+      <ul id="Gallery" class="gallery">
+
+        <% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
+            <% if index<4 %>
+            <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"])%></a></li>
+            <% end %>
+            <% if index>3 %>
+                <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"], style:"display:none", class:"imge" ) %></a></li>
+            <% end %>
+        <% end %>
+      </ul>
+      <a id="all" >Показать еще</a>
+    </div>
+
+
 <% end %>
 <script>
-onclick=function(){
-document.getElementById("imge").style.display="block"
-document.getElementById("all").style.display="none"
-}
+    $('#all').click(function(){
+        $(this).hide();
+        $('.imge').css({'display': 'block'});
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    (function(window, $, PhotoSwipe){
+
+        $(document).ready(function(){
+
+            var options = {};
+            $("#Gallery a").photoSwipe(options);
+
+        });
+
+
+    }(window, window.jQuery, window.Code.PhotoSwipe));
+
 </script>

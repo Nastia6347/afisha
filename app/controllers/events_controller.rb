@@ -5,7 +5,7 @@ json = DATA_PROVIDER.getEvents(params[:id],@city,Date.today.to_s,Date.today.to_s
 if(json["status"].to_i == 200)
 	@result = json
 else
-	redirect_to "/main/index"
+	redirect_to "/"
 end
 end
 def eventinfo
