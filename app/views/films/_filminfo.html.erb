@@ -7,48 +7,34 @@
 </div>
 
 <div>
-<p><b>Продолжительность:</b><i> <%= film["details"]["duration"] %> мин.</i></p>
+<% if film["details"]["duration"] !=nil %><p><b>Продолжительность:</b><i> <%= film["details"]["duration"] %> мин.</i></p><%end%>
 <p><b>Описание:</b><i> <%= film["description"] %></i></p>
 <p><b>В ролях:</b><i> <%= film["details"]["actors"] %></i></p>
 <p><b>Режиссер:</b><i> <%= film["details"]["director"] %></i></p>
 <p><b>Жанр:</b><i> <%= film["details"]["genres"] %></i></p><br>
 </div>
 
-<div>
- <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#clock" role="tab" data-toggle="tab">Рассписание</a></li>
- </ul>
- <div class="tab-content">
-   <div class="tab-pane active col-xs-12" id="clock">
-    <% film["details"]["schedules"]["schedule"].each do |fil| %>
-     <div>
-            <div>
-               <b> <%= fil["cinema"]["namePlace"] %></b>
-                <%= fil["cinema"]["address"]["address"] %>
-            </div>
-            <a target="_blank" href="http://<%= fil["cinema"]["webPages"][0] %>"><%= fil["cinema"]["webPages"][0] %></a>
-            <div>
-          <% fil["halls"]["hall"].each do |fi| %>
-           <% fi["hours"]["sessions"].each do |f| %>
-            <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
-		<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
-              <% if f["threeD"] == true %>
-                  3D
-              <% end %>
-	    </button>
-           <% end %>
+    <div class="col-xs-12">
+      <hr/>
+      <% film["details"]["schedules"]["schedule"].each do |fil| %>
+          <div >
+            <b> <%= fil["cinema"]["namePlace"] %></b>
+          </div>
+          <div>
+            <% fil["halls"]["hall"].each do |fi| %>
+                <% fi["hours"]["sessions"].each do |f| %>
+                    <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+                      <%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+                      <% if f["threeD"] == true %>
+                          3D
+                      <% end %>
+                    </button>
                 <% end %>
-            </div>
-            <% fil["cinema"]["contacts"].each do |f| %>
-            <div>
-              <%= f["contact"]["comment"] %> - 8 (<%= f["contact"]["code"] %>) <%= f["contact"]["value"] %>
-            </div>
             <% end %>
-     </div>
-    <% end %>
- </div>
- </div>
-</div>
+          </div>
+      <% end %>
+      <hr/>
+    </div>
 
 
  <div id="MainContent">

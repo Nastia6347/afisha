@@ -1,6 +1,5 @@
 class MainController < ApplicationController
 def change_town
-
 	@branch = nil
 		BRANCHES.each do |branch|
 			if branch[:branch_id]==params[:branch_id].to_i
@@ -12,7 +11,8 @@ def change_town
 		else
 			session[:branch_id] = @branch[:branch_id].to_i
 		end
-
 redirect_to "/"
 end
+
 end
+
