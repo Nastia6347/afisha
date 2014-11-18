@@ -1,45 +1,82 @@
 ﻿<h1>Сейчас в кинотеатрах</h1>
-<% @films["result"]["event"].each do |film| %>
-    <div class="col-xs-12">
+<% @b=rand(@films["result"]["event"].length) %>
 
-      <a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"], align:"left", style:"padding-top:25px" ) %></a>
+<div class="col-xs-12">
 
-      <div class="col-xs-10">
-        <a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
-        <div style="color:grey">
-          <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
- 
-<% if film["details"]["duration"] !=nil %> <%= film["details"]["duration"] %> мин<br><%end%>
-          <%= film["details"]["genres"] %><br>
-        </div>
-      <div>
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#clock" role="tab" data-toggle="tab" text-align:  center;" >Расписание</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane active col-xs-12" id="clock">
-          <% film["details"]["schedules"]["schedule"].each do |fil| %>
-              <div>
-                <div >
-                 <b> <%= fil["cinema"]["namePlace"] %></b>
-                </div>
-                <div>
-                  <% fil["halls"]["hall"].each do |fi| %>
-                      <% fi["hours"]["sessions"].each do |f| %>
-                      <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
-			<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
-                          <% if f["threeD"] == true %>
-                              3D
-                          <% end %>
-		       </button>
-                      <% end %>
-                  <% end %>
-                </div>
-              </div>
-          <% end %>
-        </div>
-      </div>
-      </div>
-     </div>
+  <a href="/films/filminfo/<%= @films["result"]["event"][@b]["id"].to_i %>"><%= image_tag(@films["result"]["event"][@b]["images"]["image"][2]["url"], align:"left", style:"padding-top:25px" ) %></a>
+
+<div class="col-xs-12">
+<a href="/films/filminfo/<%= @films["result"]["event"][@b]["id"].to_i %>"><h3><%= @films["result"]["event"][@b]["name"] %></h3></a>
+    <div style="color:grey">
+      <%= @films["result"]["event"][@b]["details"]["country"] %>, <%= @films["result"]["event"][@b]["details"]["releaseYear"] %><br>
+
+      <% if @films["result"]["event"][@b]["details"]["duration"] !=nil %> <%= @films["result"]["event"][@b]["details"]["duration"] %> мин<br><%end%>
+      <%= @films["result"]["event"][@b]["details"]["genres"] %><br>
     </div>
+</div>
+
+ <div class="col-xs-12">
+ <hr/>
+    <% @films["result"]["event"][@b]["details"]["schedules"]["schedule"].each do |fil| %>
+      <div >
+         <b> <%= fil["cinema"]["namePlace"] %></b>
+      </div>
+      <div>
+        <% fil["halls"]["hall"].each do |fi| %>
+         <% fi["hours"]["sessions"].each do |f| %>
+         <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+            <%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+            <% if f["threeD"] == true %>
+            3D
+            <% end %>
+         </button>
+         <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <hr/>
+</div>
+
+</div>
+
+
+<% @films["result"]["event"].each_with_index  do |film, index| %>
+<% if @b != index %>
+<div class="col-xs-12">
+
+ <a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"], align:"left", style:"padding-top:25px" ) %></a>
+
+ <div class="col-xs-10">
+
+   <a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
+   <div style="color:grey">
+    <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
+    <% if film["details"]["duration"] !=nil %> <%= film["details"]["duration"] %> мин<br><%end%>
+    <%= film["details"]["genres"] %><br>
+   </div>
+ </div>
+ <div class="col-xs-12">
+ <hr/>
+ <% film["details"]["schedules"]["schedule"].each do |fil| %>
+  <div >
+   <b> <%= fil["cinema"]["namePlace"] %></b>
+  </div>
+  <div>
+   <% fil["halls"]["hall"].each do |fi| %>
+   <% fi["hours"]["sessions"].each do |f| %>
+   <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+	<%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+     <% if f["threeD"] == true %>
+      3D
+     <% end %>
+	</button>
+    <% end %>
+    <% end %>
+   </div>
+  <% end %>
+  <hr/>
+  </div>
+</div>
+
+<% end %>
 <% end %>
