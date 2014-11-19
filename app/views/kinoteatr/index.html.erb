@@ -1,0 +1,6 @@
+<% @result["result"]["places"].each do |kino| %>
+    <h1> <%= kino["namePlace"] %></h1>
+    <% kino["contacts"].each do |contacts| %>
+    <a href="tel:+7<%= contacts["contact"]["code"] %><%= contacts["contact"]["value"] %>">(<%= contacts["contact"]["code"] %>)<%= contacts["contact"]["value"] %></a>
+    <% end %>
+<% end %>

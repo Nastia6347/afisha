@@ -13,6 +13,5 @@ def change_town
 		end
 redirect_to "/"
 end
-
 end
 

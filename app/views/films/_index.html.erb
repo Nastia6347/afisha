@@ -1,0 +1,18 @@
+﻿<!--краткая форма фильма-->
+<h1>Сейчас в кинотеатрах</h1>
+<% @films["result"]["event"].each do |film| %>
+<div class="col-xs-12">
+
+  <a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"], align:"left", style:"padding-top:25px" ) %></a>
+
+ <div class="col-xs-10">
+  <a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
+  <div style="color:grey">
+    <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
+    <%= film["details"]["genres"] %><br>
+<% if film["details"]["duration"] !=nil %> <%= film["details"]["duration"] %> мин<br><%end%>
+  </div>
+  <a href="/films/filminfo/<%= film["id"].to_i %>" style="text-decoration:none; color:#000000" ><%= film["description"] %></a>
+ </div>
+</div>
+<% end %>
