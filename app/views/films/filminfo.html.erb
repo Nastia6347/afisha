@@ -1,1 +1,57 @@
-<%= render 'filminfo' %>
+﻿<!--развернутая форма фильма-->
+<% @result["result"]["event"].each do |film| %>
+
+<h3><%= film["name"] %></h3>
+<div>
+  <%= video_tag(film["details"]["trailer"], size:"450x300")%>
+  <p><%= film["details"]["country"] %></p>
+</div>
+
+<div>
+<% if film["details"]["duration"] !=nil %><p><b>Продолжительность:</b><i> <%= film["details"]["duration"] %> мин.</i></p><%end%>
+<p><b>Описание:</b><i> <%= film["description"] %></i></p>
+<p><b>В ролях:</b><i> <%= film["details"]["actors"] %></i></p>
+<p><b>Режиссер:</b><i> <%= film["details"]["director"] %></i></p>
+<p><b>Жанр:</b><i> <%= film["details"]["genres"] %></i></p><br>
+</div>
+    <%= render 'ras' %>
+ <div id="MainContent">
+
+      <ul id="Gallery" class="gallery">
+
+        <% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
+            <% if index<4 %>
+            <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"])%></a></li>
+            <% end %>
+            <% if index>3 %>
+                <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"], style:"display:none", class:"imge" ) %></a></li>
+            <% end %>
+        <% end %>
+      </ul>
+      <a id="all" >Показать еще</a>
+    </div>
+
+
+<% end %>
+<script>
+    $('#all').click(function(){
+        $(this).hide();
+        $('.imge').css({'display': 'block'});
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    (function(window, $, PhotoSwipe){
+
+        $(document).ready(function(){
+
+            var options = {};
+            $("#Gallery a").photoSwipe(options);
+
+        });
+
+    }(window, window.jQuery, window.Code.PhotoSwipe));
+
+</script>

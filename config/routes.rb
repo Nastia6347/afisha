@@ -1,4 +1,8 @@
 Bid::Application.routes.draw do
+  get "kinoteatr/index"
+
+  get "kiniteatr/index"
+
   get "events/index"
 
   # The priority is based upon order of creation:

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>error_500</title>
+  
+  <style type="text/css">
+    body { text-align: center; font-family: arial, sans-serif; }
+    div.sered 
+    {
+      width: 25em;
+      padding: 0 4em;
+      margin: 4em auto 0 auto;
+
+      top: 50%; /* Отступ в процентах от верхнего края окна */
+      left: 50%; /* Отступ в процентах от левого края окна */
+      width: 450px; /* Ширина блока */
+      height: 450px; /* Высота блока */
+      position: absolute; /* Абсолютное позиционирование блока */
+      margin-top: -225px; /* Отрицательный отступ от верхнего края страницы, должен равняться половине высоты блока со знаком минус */
+      margin-left: -225px; /* Отрицательный отступ от левого края страницы, должен равняться половине высоты блока со знаком минус */
+    }
+    
+   h1 { font-size: 100%; color: #000; line-height: 1.5em; }
+	
+
+   .knopa 
+   {
+    border: 1px solid #333; /* Рамка */
+    display: inline-block;
+    padding: 5px 15px; /* Поля */
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+   }
+   .knopa:hover 
+   {
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
+    color: #a00;
+   }
+  </style>
+</head>
+
+<body>
+ 
+  <div class="sered">
+    <h1>Сетевое подключение ceйчас отсутствует. Повторите попытку позже</h1>
+    <a href="javascript:window.location.reload()" class="knopa">Повторить</a>
+  </div>
+
+</body>
+</html>

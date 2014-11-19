@@ -34,4 +34,12 @@
 	}
 	return JSON.parse(res.body.force_encoding('UTF-8'))
  end
+ def getKinoInfo(kinoid)
+   url= URI.parse(" http://api.4geo.ru/rest2/affiche/findPlaceEvent.json?id=" + kinoid.to_s)
+   req = Net::HTTP::Get.new(url.to_s)
+   res = Net::HTTP.start(url.host, url.port) {|http|
+     http.request(req)
+   }
+   return JSON.parse(res.body.force_encoding('UTF-8'))
+ end
 end

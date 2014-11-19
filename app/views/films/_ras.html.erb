@@ -1,0 +1,21 @@
+<% @result["result"]["event"].each do |film| %>
+<div class="col-xs-12">
+  <hr/>
+  <% film["details"]["schedules"]["schedule"].each do |fil| %>
+        <a href="/kinoteatr/index/<%= fil["cinema"]["id"] %>" ><b><%= fil["cinema"]["namePlace"] %></b></a>
+      <div>
+        <% fil["halls"]["hall"].each do |fi| %>
+            <% fi["hours"]["sessions"].each do |f| %>
+                <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+                  <%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+                  <% if f["threeD"] == true %>
+                      3D
+                  <% end %>
+                </button>
+            <% end %>
+        <% end %>
+      </div>
+  <% end %>
+  <hr/>
+</div>
+<% end %>
