@@ -35,11 +35,19 @@
 	return JSON.parse(res.body.force_encoding('UTF-8'))
  end
  def getKinoInfo(kinoid)
-   url= URI.parse(" http://api.4geo.ru/rest2/affiche/findPlaceEvent.json?id=" + kinoid.to_s)
+   url= URI.parse("http://api.4geo.ru/rest2/affiche/findPlaceEvent.json?id=" + kinoid.to_s)
    req = Net::HTTP::Get.new(url.to_s)
    res = Net::HTTP.start(url.host, url.port) {|http|
      http.request(req)
    }
    return JSON.parse(res.body.force_encoding('UTF-8'))
  end
+  def getGeoLokation(geoid)
+    url= URI.parse("http://api.4geo.ru/rest/geocode/ids.json?ids=" + geoid.to_s)
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    return JSON.parse(res.body.force_encoding('UTF-8'))
+  end
 end

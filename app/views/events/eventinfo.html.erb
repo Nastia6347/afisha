@@ -1,14 +1,15 @@
 <% @result["result"]["event"].each do |event| %>
     <h3><%= event["name"] %></h3>
-    <%= image_tag(event["images"]["image"][0]["url"], align:"left", style:"padding:25px 25px;" ) %>
+    <%= image_tag(event["images"]["image"][0]["url"], align:"left", style:"padding:20px 20px;" ) %>
     <div>
 
       <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
-      <%= event["startAt"] %>
-      <% if event["endAt"] != event["startAt"] %> <%= event["endAt"] %> <% end %>
+
+      <%= DateTime.parse(event["startAt"]).strftime("%d.%m.%Y")  %>
+      <% if event["endAt"] != event["startAt"] %> - <%= DateTime.parse(event["endAt"]).strftime("%d.%m.%Y") %> <% end %>
     </div>
     <div>
-      <p>Место проведения: <%= event["details"]["place"]["namePlace"] %></p>
+      <% if event["details"]["place"]["namePlace"]!= nil %><p>Место проведения: <%= event["details"]["place"]["namePlace"] %></p><% end %>
       <a target="_blank" href="http://<%= event["details"]["place"]["webPages"][0]%>"><%= event["details"]["place"]["webPages"][0]%></a>
       <% if event["details"]["place"]["address"]!= nil %>
           <%= event["details"]["place"]["address"]["address"] %>
@@ -24,7 +25,6 @@
       <%=raw event["description"].to_s %>
     </div>
 
-
     <% if event["details"]["photo"]!= nil %>
         <div id="MainContent">
 
@@ -32,10 +32,10 @@
 
             <% event["details"]["photo"]["images"].each_with_index do |eve, index| %>
                 <% if index<4 %>
-                    <li><a href="<%= eve["image"][2]["url"] %>"><%= image_tag(eve["image"][0]["url"])%></a></li>
+                    <a href="<%= eve["image"][2]["url"] %>"> <li style="background-image:url(<%= eve["image"][0]["url"] %>);"></li></a>
                 <% end %>
                 <% if index>3 %>
-                    <li><a href="<%= eve["image"][2]["url"] %>"><%= image_tag(eve["image"][0]["url"], style:"display:none", class:"imge" ) %></a></li>
+                    <a href="<%= eve["image"][2]["url"] %>"><li class="imge" style="display:none; background-image:url(<%= eve["image"][0]["url"] %>);"></li></a>
                 <% end %>
             <% end %>
           </ul>

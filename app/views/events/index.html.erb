@@ -6,8 +6,8 @@
     <h3><%= event["name"] %></h3>
    </a>
     <%= Time.at(event["hours"]["hour"][0].to_i).strftime("%H:%M") %>
-    <%= event["startAt"] %>
-    <% if event["endAt"] != event["startAt"]%><%= event["endAt"] %> <% end %>
+    <%= DateTime.parse(event["startAt"]).strftime("%d.%m.%Y") %>
+    <% if event["endAt"] != event["startAt"]%> - <%= DateTime.parse(event["endAt"]).strftime("%d.%m.%Y") %> <% end %>
     <p><h4><%= event["eventType"]["name"] %></h4></p>
   <hr/>
     <%=raw event["description"] %>

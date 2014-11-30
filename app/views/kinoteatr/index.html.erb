@@ -1,15 +1,89 @@
 ﻿<% @result["result"]["places"].each do |kino| %>
     <h1> <%= kino["namePlace"] %></h1>
-         <p><%= kino["description"] %></p>
-	 <p><b>Адрес:</b> <%= kino["address"]["address"]%></p>       
+    <div id="map_canvas" style="height: 400px; width: 570px; border:1px solid #ccc; margin-top: 10px;"></div>
+    <script type="text/javascript">
+        <!--
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(<%= @resu["result"]["geoobject"][0]["location"]["lat"] %>,<%= @resu["result"]["geoobject"][0]["location"]["lon"] %>);
+            //координаты - будьте внимательны, у яндекса и гугла они поменяны местами
+            var myOptions = {
+                zoom: 17,
+                center: myLatlng,
+                markers: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: "<%= @resu["result"]["geoobject"][0]["details"]["name"] %> <%= kino["address"]["address"]%>"
+                //заголовок маркера
+            });
+        }
+
+        function loadScript() {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=initialize";
+            document.body.appendChild(script);
+        }
+        window.onload = loadScript;
+        //-->
+    </script>
+    <div class="col-xs-12">
+     <p><%= kino["description"] %></p>
+	 <p><b>Адрес:</b> <%= @resu["result"]["geoobject"][0]["details"]["name"] %>, <%= kino["address"]["address"]%></p>
 	 <p><b>Официальный сайт:</b> <a target="_blank" href="http://<%= kino["webPages"]%>"><%= kino["webPages"][0]%></a></p>
-	 <p><b>Персональный сайт на 4geo:</b> <a target="_blank" href="<%= kino["personalPage"]%>"><%= kino["personalPage"]%></a>	</p>
-<p><b>Контакты:</b></p>
+	 <p><b>Персональный сайт на 4geo:</b> <a target="_blank" href="<%= kino["personalPage"]%>"><%= kino["personalPage"]%></a></p>
+     <p><b>Контакты:</b></p>
     <% kino["contacts"].each do |contacts| %>
-   
-     <p> <% if contacts["contact"]["comment"]!= nil %>
- 		<%= contacts["contact"]["comment"] %>: 
-	<% end %>
-<a href="tel:+7<%= contacts["contact"]["code"] %><%= contacts["contact"]["value"] %>">(<%= contacts["contact"]["code"] %>)<%= contacts["contact"]["value"] %></a>
-   </p> <% end %>
+      <% if contacts["contact"]["comment"]!= nil %>
+         <p><%= contacts["contact"]["comment"] %>:
+      <% end %>
+<a href="tel:+7<%= contacts["contact"]["code"] %><%= contacts["contact"]["value"] %>">+7(<%= contacts["contact"]["code"] %>)<%= contacts["contact"]["value"] %></a>
+          </p>
+      <% end %>
+    </div>
+    <% @films["result"]["event"].each  do |film| %>
+        <% film["details"]["schedules"]["schedule"].each do |fil| %>
+        <% if fil["cinema"]["id"].to_i == kino["id"].to_i %>
+        <div class="col-xs-12">
+
+          <a href="/films/filminfo/<%= film["id"].to_i %>"><%= image_tag(film["details"]["poster"]["image"][0]["url"], align:"left", style:"padding-top:25px" ) %></a>
+
+          <div class="col-xs-10">
+
+            <a href="/films/filminfo/<%= film["id"].to_i %>"><h3><%= film["name"] %></h3></a>
+            <div style="color:grey">
+              <%= film["details"]["country"] %>, <%= film["details"]["releaseYear"] %><br>
+              <% if film["details"]["duration"] !=nil %> <%= film["details"]["duration"] %> мин<br><%end%>
+              <%= film["details"]["genres"] %><br>
+            </div>
+          </div>
+          <div class="col-xs-12">
+
+            <% film["details"]["schedules"]["schedule"].each do |fil| %>
+                <% if fil["cinema"]["id"].to_i == kino["id"].to_i %>
+                    <hr/>
+                <div>
+                  <% fil["halls"]["hall"].each do |fi| %>
+                      <% fi["hours"]["sessions"].each do |f| %>
+                          <button type="button" class="btn btn-primary btn-xs" style="margin: 3px; min-width: 80px;">
+                            <%= Time.at(f["hour"].to_i).strftime("%H:%M") %>
+                            <% if f["threeD"] == true %>
+                                3D
+                            <% end %>
+                          </button>
+                      <% end %>
+                  <% end %>
+                </div>
+                    <hr/>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+        <% end %>
+    <% end %>
 <% end %>

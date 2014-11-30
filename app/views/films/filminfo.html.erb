@@ -21,16 +21,15 @@
 
         <% film["details"]["filmShots"]["images"].each_with_index do |fim, index| %>
             <% if index<4 %>
-            <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"])%></a></li>
+                <a href="<%= fim["image"][2]["url"] %>"> <li style="background-image:url(<%= fim["image"][0]["url"] %>);"></li></a>
             <% end %>
             <% if index>3 %>
-                <li><a href="<%= fim["image"][2]["url"] %>"><%= image_tag(fim["image"][0]["url"], style:"display:none", class:"imge" ) %></a></li>
+                <a href="<%= fim["image"][2]["url"] %>"><li class="imge" style="display:none; background-image:url(<%= fim["image"][0]["url"] %>);"></li></a>
             <% end %>
         <% end %>
       </ul>
       <a id="all" >Показать еще</a>
     </div>
-
 
 <% end %>
 <script>

@@ -7,5 +7,11 @@ class KinoteatrController < ApplicationController
     else
       redirect_to :back
     end
+    json = DATA_PROVIDER.getGeoLokation(@result["result"]["places"][0]["geoobjectId"])
+    if(json["status"].to_i == 200)
+      @resu = json
+    else
+      redirect_to :back
+    end
   end
 end
