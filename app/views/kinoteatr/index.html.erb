@@ -1,6 +1,15 @@
-<% @result["result"]["places"].each do |kino| %>
+﻿<% @result["result"]["places"].each do |kino| %>
     <h1> <%= kino["namePlace"] %></h1>
+         <p><%= kino["description"] %></p>
+	 <p><b>Адрес:</b> <%= kino["address"]["address"]%></p>       
+	 <p><b>Официальный сайт:</b> <a target="_blank" href="http://<%= kino["webPages"]%>"><%= kino["webPages"][0]%></a></p>
+	 <p><b>Персональный сайт на 4geo:</b> <a target="_blank" href="<%= kino["personalPage"]%>"><%= kino["personalPage"]%></a>	</p>
+<p><b>Контакты:</b></p>
     <% kino["contacts"].each do |contacts| %>
-    <a href="tel:+7<%= contacts["contact"]["code"] %><%= contacts["contact"]["value"] %>">(<%= contacts["contact"]["code"] %>)<%= contacts["contact"]["value"] %></a>
-    <% end %>
+   
+     <p> <% if contacts["contact"]["comment"]!= nil %>
+ 		<%= contacts["contact"]["comment"] %>: 
+	<% end %>
+<a href="tel:+7<%= contacts["contact"]["code"] %><%= contacts["contact"]["value"] %>">(<%= contacts["contact"]["code"] %>)<%= contacts["contact"]["value"] %></a>
+   </p> <% end %>
 <% end %>
